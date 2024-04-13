@@ -1,0 +1,31 @@
+#include <SoftwareSerial.h>
+
+SoftwareSerial bluetoothSerial(0, 1); // RX, TX pins for Bluetooth communication
+
+const int ecgPin = A0; // Analog pin for ECG signal generation
+
+void setup() {
+  // Initialize serial communication for debugging
+  Serial.begin(9600);
+  
+  // Initialize Bluetooth communication
+  bluetoothSerial.begin(9600);
+}
+
+void loop() {
+  // Generate synthetic ECG waveform
+  int ecgValue = analogRead(ecgPin);
+  
+  // Print ECG value to Serial monitor for debugging
+  Serial.println(String(ecgValue));
+  
+  // Convert ECG value to string
+  String ecgString = String(ecgValue);
+  
+  // Send ECG value over Bluetooth
+  bluetoothSerial.println(ecgString);
+  
+  // Delay for a short interval to control data rate
+  delay(100); // Adjust this delay as needed to control the data rate
+}
+
